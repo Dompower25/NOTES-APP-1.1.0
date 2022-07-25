@@ -21,12 +21,12 @@ const SingUpForm = ({userEmail, setUserEmail, userPass, setUserPass}) => {
           setUserPass(e.target.value);
         }}
         placeholder="Password"
-        onSubmit={(e) => {
+        
+      ></input>
+      <button onClick={(e) => {
           SingUp(e, userEmail, userPass);
           console.log(userEmail, userPass);
-        }}
-      ></input>
-      <button type="submit">зарегистрироваться</button>
+        }} type="submit">зарегистрироваться</button>
     </form>
   );
 }

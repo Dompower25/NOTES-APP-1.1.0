@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import MyButton from "../UI/MyButton";
 import st from "../style/NoteItem.module.scss";
 
-function NoteItem({ bodyNote, tag, deleteNote, note, edit, timeCreate }) {
+function NoteItem({ bodyNote, tag, note, edit, timeCreate, deleteNote, id }) {
   const maxDate = new Date(timeCreate);
   const time = maxDate.toLocaleString();
   const [state, setState] = useState(bodyNote);
   const [stateTag, setStateTag] = useState(tag);
   const [editNote, setEditNode] = useState(true);
   const [editButt, setEditButt] = useState("none");
-
+  
   return (
     <div className="note__box">
       <div className="note__content">
@@ -47,10 +47,9 @@ function NoteItem({ bodyNote, tag, deleteNote, note, edit, timeCreate }) {
           <MyButton
             style={{ display: editButt, backgroundColor: "green" }}
             onClick={() => {
-              edit(state);
+              edit(state, id, setStateTag);
               setEditNode(true);
               setEditButt("none");
-              setStateTag(tag);
             }}
           >
             сохранить

@@ -4,92 +4,30 @@ import NotesForm from "./components/NotesForm";
 import SearchInput from "./components/SearchInput";
 import "./style/App.scss";
 import { useSearch } from "./hooks/useSearch";
-import { LogOut, userLog, supabase } from "./supabase.js";
-import SingUpForm from "./components/SingUpForm";
-import LogInMagicForm from "./components/LogInMagicForm";
-import LogInForm from "./components/LogInForm";
-import {
-  addTags,
-  textNotTags,
-  addNewNote,
-  editNotes,
-  removeNote,
-  fetchNotes,
-} from "./notes";
+import { userLog, supabase } from "./supabase";
+import { getNote, insertNote, deleteNote, updateNote } from "./notes";
+import HeaderForm from "./components/HeaderForm";
+import Modal from "./components/Modal";
 
 function App() {
   const [notes, setNotes] = useState([]);
   const [bodyNote, setbodyNote] = useState("");
   const [searchTag, setSearchTag] = useState("");
   const filteredNotes = useSearch(notes, searchTag); //хук поиска тегов
-  const [userEmail, setUserEmail] = useState("");
-  const [userPass, setUserPass] = useState("");
-  const [userName, setUserName] = useState('');
 
-  useEffect(() => {
-    fetchNotes(setNotes);
-    setUserName(userLog?.email);
-  }, []);
+  // useEffect(() => {
+  //   getNote(setNotes);
+  // }, []);
 
-  // добавление заметки supabase
-  async function insertNote(e, newText) {
-    e.preventDefault();
-    const newNote = {
-      bodyNote: newText,
-      tags: [],
-      timeCreate: Date.now(),
-      user_id: userLog?.id,
-    };
-    newText.search(/#\w+/gm) !== -1
-      ? addTags(newNote, newText)
-      : textNotTags("no tags", newNote);
-
-    let backup = [];
-    setNotes((note) => {
-      backup = note;
-      return [...note, newNote];
-    });
-
-    try {
-      const { data, error } = await supabase.from("notes").insert(newNote);
-    } catch (err) {
-      setNotes(backup);
-      throw err;
-    }
-  }
-
+  console.log(userLog);
   return (
     <div className="App">
-      <div className="header">
-        <h5>{userName}</h5>
-
-        <button onClick={LogOut}>выйти</button>
-
-        <SingUpForm
-          userEmail={userEmail}
-          setUserEmail={setUserEmail}
-          userPass={userPass}
-          setUserPass={setUserPass}
-        ></SingUpForm>
-
-        <LogInMagicForm
-          userEmail={userEmail}
-          setUserEmail={setUserEmail}
-        ></LogInMagicForm>
-
-        <LogInForm
-          userEmail={userEmail}
-          setUserEmail={setUserEmail}
-          userPass={userPass}
-          setUserPass={setUserPass}
-        ></LogInForm>
-      </div>
+      {userLog ? <HeaderForm /> : <Modal />}
 
       <h1>NOTES APP</h1>
       <NotesForm //форма создания заметки
         bodyNote={bodyNote}
         setbodyNote={setbodyNote}
-        addNewNote={addNewNote}
         notes={notes}
         setNotes={setNotes}
         insertNote={insertNote}
@@ -98,11 +36,9 @@ function App() {
       <SearchInput value={searchTag} note={notes} onChange={setSearchTag} />
       {filteredNotes.map(({ bodyNote, id, tags, timeCreate }) => (
         <NoteItem
-          edit={(e) => {
-            editNotes(e, timeCreate, id);
-          }}
+          edit={updateNote}
           note={searchTag}
-          deleteNote={() => removeNote(id, setNotes, notes)}
+          deleteNote={() => deleteNote(id, setNotes, notes)}
           bodyNote={bodyNote}
           id={id}
           tag={tags}

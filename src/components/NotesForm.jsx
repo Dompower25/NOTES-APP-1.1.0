@@ -5,7 +5,6 @@ import MyInput from "../UI/MyInput";
 const NotesForm = ({
   bodyNote,
   setbodyNote,
-  addNewNote,
   setNotes,
   insertNote,
 }) => {
@@ -20,8 +19,7 @@ const NotesForm = ({
         ></MyInput>
         <MyButton
           onClick={(e) => {
-            addNewNote(e, bodyNote, setNotes, setbodyNote);
-            insertNote(e, bodyNote);
+            insertNote(e, bodyNote, setbodyNote, setNotes);
           }}
         >
           добавить заметку

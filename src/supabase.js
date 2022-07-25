@@ -12,16 +12,6 @@ const supabase = createClient(
 const userLog = supabase.auth.user();
 const getUserId = userLog?.id;
 
-async function getNote() {
-  try {
-    let { data, error } = await supabase.from("notes").select("*");
-    console.log(data, "notes");
-  } catch (error) {
-    throw error;
-  }
-}
-getNote();
-
 async function SingUp(e, email, pass) {
   e.preventDefault();
   try {

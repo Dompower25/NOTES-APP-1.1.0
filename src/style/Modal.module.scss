@@ -1,0 +1,25 @@
+.modal {
+  position: relative;
+  overflow: unset;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 700px;
+  background-color: rgb(49, 45, 45);
+}
+
+.login__form {
+  display: inline-block;
+  margin: 25px auto;
+}
+
+
+.log {
+  font-size: 50px;
+
+}
+
+.row {
+  display: flex;
+
+}

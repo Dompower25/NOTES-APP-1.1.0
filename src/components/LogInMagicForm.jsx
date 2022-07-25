@@ -3,7 +3,7 @@ import { LogInMagic } from '../supabase';
 
 const LogInMagicForm = ({userEmail, setUserEmail}) => {
   return (
-    <form id="logInMagic">
+    <form id="logInMagic" className='row-column'>
       <input
         type="text"
         value={userEmail}
