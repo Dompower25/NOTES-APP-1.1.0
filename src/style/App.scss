@@ -1,0 +1,106 @@
+@import "nullStyle.scss";
+
+/*----------------------------------------------------------------------------*/
+body {
+  background: url('../UI/image/1627093201_21-kartinkin-com-p-fon-melovaya-doska-zelenaya-krasivo-21.jpg') no-repeat fixed
+}
+
+.App {
+  max-width: 700px;
+  margin: 20px auto;
+
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 730px) {
+  .App {
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 570px) {
+  .App {
+    max-width: 300px;
+  }
+.row {
+  display: block;
+  margin: 3px;
+}
+}
+
+@media (max-width: 370px) {
+  .App {
+    max-width: none;
+    margin: 0 4px;
+  }
+}
+
+
+
+
+hr {
+  margin: 15px 0;
+  border: 1px;
+}
+
+
+
+.row_column {
+  display: flex;
+  flex-direction: column;
+}
+
+.block {
+  display: block;
+}
+
+.sorting {
+  width: 100px;
+  height: 30px;
+  font-size: 16px;
+  border: 1px solid rgb(129, 127, 127);
+  border-radius: 5px;
+  text-align: center;
+}
+
+.tegSt {
+  color: rgb(68, 45, 175);
+}
+
+.tegs__box {
+  padding: 3px 0;
+
+}
+  span {
+    color: rgba(245, 245, 220, 0.734);
+  }
+
+.search {
+  height: 30px;
+  width: 200px;
+  border: 1px solid rgb(129, 127, 127);
+  border-radius: 10px;
+  padding: 0 7px;
+  font-size: 16px;
+  padding-bottom: 3px;
+  border-radius: 8px;
+  background-color: rgba(216, 201, 201, 0.319);
+  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  color: beige;
+    &::placeholder {
+      color: rgba(245, 245, 220, 0.734);
+    }
+}
+
+.note__content {
+  border-radius: 8px;
+  background-color: rgba(216, 201, 201, 0.319);
+  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  margin: 20px 0;
+  padding: 10px;
+}
+
