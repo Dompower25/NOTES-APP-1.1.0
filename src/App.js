@@ -23,29 +23,30 @@ function App() {
   return (
     <div className="App">
       {userLog ? <HeaderForm /> : <Modal />}
-
-      <h1>NOTES APP</h1>
-      <NotesForm //форма создания заметки
-        bodyNote={bodyNote}
-        setbodyNote={setbodyNote}
-        notes={notes}
-        setNotes={setNotes}
-        insertNote={insertNote}
-      />
-      <hr></hr>
-      <SearchInput value={searchTag} note={notes} onChange={setSearchTag} />
-      {filteredNotes.map(({ bodyNote, id, tags, timeCreate }) => (
-        <NoteItem
-          edit={updateNote}
-          note={searchTag}
-          deleteNote={() => deleteNote(id, setNotes, notes)}
+      <div className="notes__app">
+        <h1>NOTES APP</h1>
+        <NotesForm //форма создания заметки
           bodyNote={bodyNote}
-          id={id}
-          tag={tags}
-          key={timeCreate}
-          timeCreate={timeCreate}
+          setbodyNote={setbodyNote}
+          notes={notes}
+          setNotes={setNotes}
+          insertNote={insertNote}
         />
-      ))}
+        <hr></hr>
+        <SearchInput value={searchTag} note={notes} onChange={setSearchTag} />
+        {filteredNotes.map(({ bodyNote, id, tags, timeCreate }) => (
+          <NoteItem
+            edit={updateNote}
+            note={searchTag}
+            deleteNote={() => deleteNote(id, setNotes, notes)}
+            bodyNote={bodyNote}
+            id={id}
+            tag={tags}
+            key={timeCreate}
+            timeCreate={timeCreate}
+          />
+        ))}
+      </div>
     </div>
   );
 }

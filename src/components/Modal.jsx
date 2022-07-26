@@ -10,24 +10,26 @@ const Modal = () => {
   const [userPass, setUserPass] = useState("");
   return (
     <div className={st.modal}>
-      <div className={st.login__form}>
-        <span className={st.log}>вход</span>
-        <LogInMagicForm userEmail={userEmail} setUserEmail={setUserEmail} />
-        <LogInForm
-          userEmail={userEmail}
-          setUserEmail={setUserEmail}
-          userPass={userPass}
-          setUserPass={setUserPass}
-        />
-        <span>У вас еще нет аккаунта?</span>
-      </div>
-      <div className="register__form">
-        <SingUpForm
-          userEmail={userEmail}
-          setUserEmail={setUserEmail}
-          userPass={userPass}
-          setUserPass={setUserPass}
-        />
+      <div className={st.modal__content}>
+        <div className={st.login__form}>
+          <span className={st.log}>вход</span>
+          <LogInMagicForm userEmail={userEmail} setUserEmail={setUserEmail} />
+          <LogInForm
+            userEmail={userEmail}
+            setUserEmail={setUserEmail}
+            userPass={userPass}
+            setUserPass={setUserPass}
+          />
+          <span>У вас еще нет аккаунта?</span>
+        </div>
+        <div className="register__form">
+          <SingUpForm
+            userEmail={userEmail}
+            setUserEmail={setUserEmail}
+            userPass={userPass}
+            setUserPass={setUserPass}
+          />
+        </div>
       </div>
     </div>
   );
