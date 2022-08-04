@@ -3,7 +3,7 @@ import { LogOut, userLog, supabase } from "../supabase";
 import MyButton from "../UI/MyButton";
 
 
-const HeaderForm = () => {
+const HeaderForm = ({ setUserLogIn }) => {
   const [userName, setUserName] = useState("");
 
   useEffect(() => {
@@ -11,9 +11,9 @@ const HeaderForm = () => {
   }, []);
 
   return (
-    <div className="header row modile">
+    <div className="header modile">
       <h5 className="user__name">{userName}</h5>
-      <MyButton onClick={LogOut}>выйти</MyButton>
+      <MyButton onClick={() => { LogOut(); setUserLogIn(false)}}>выйти</MyButton>
     </div>
   );
 };

@@ -2,12 +2,9 @@
 
 /*----------------------------------------------------------------------------*/
 body {
-  background: url('../UI/image/1627093201_21-kartinkin-com-p-fon-melovaya-doska-zelenaya-krasivo-21.jpg') no-repeat fixed
+  background-color: rgb(26, 52, 51);
 }
 
-.App {
-  
-}
 .notes__app {
     max-width: 700px;
   margin: 20px auto;
@@ -20,21 +17,20 @@ body {
 
 @media (max-width: 730px) {
   .App {
-    max-width: 500px;
+    max-width: 570px;
+    margin: 0 auto;
   }
+  
 }
 
 @media (max-width: 570px) {
   .App {
-    max-width: none;
-    margin: 0 4px;
+    max-width: 450px;
+    margin: 0 auto;
   }
 .row {
   display: block;
   margin:0 3px;
-}
-.modile {
-  
 }
 
 }
@@ -114,6 +110,7 @@ hr {
 
 .header {
   width: 100%;
+  display: flex;
 }
 
 .user__name {

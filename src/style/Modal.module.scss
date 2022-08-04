@@ -11,21 +11,16 @@
 }
 
 .modal__content {
-  
+
 }
 
 .login__form {
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 25px auto;
 }
 
-
 .log {
-  font-size: 50px;
-
-}
-
-.row {
-  display: flex;
-
+  font-size: 50px;  
 }

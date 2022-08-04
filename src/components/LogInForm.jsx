@@ -1,10 +1,18 @@
 import React from 'react'
 import { LogIn } from '../supabase';
+import st from "../style/LogInMagicForm.module.scss";
 
-const LogInForm = ({userEmail, userPass, setUserEmail, setUserPass}) => {
+const LogInForm = ({
+  userEmail,
+  userPass,
+  setUserEmail,
+  setUserPass,
+  setUserLogIn,
+}) => {
   return (
-    <form id="logIn" className="form">
+    <form id="logIn" className={st.login__form}>
       <input
+        className={st.input}
         type="text"
         value={userEmail}
         onChange={(e) => {
@@ -13,6 +21,7 @@ const LogInForm = ({userEmail, userPass, setUserEmail, setUserPass}) => {
         placeholder="Email"
       ></input>
       <input
+        className={st.input}
         type="password"
         value={userPass}
         onChange={(e) => {
@@ -21,14 +30,16 @@ const LogInForm = ({userEmail, userPass, setUserEmail, setUserPass}) => {
         placeholder="Password"
       ></input>
       <button
+        className={st.button}
         onClick={(e) => {
           LogIn(e, userEmail, userPass);
+          setUserLogIn(true);
         }}
       >
-        войти
+        go in
       </button>
     </form>
   );
-}
+};
 
 export default LogInForm

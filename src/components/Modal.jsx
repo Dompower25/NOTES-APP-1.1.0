@@ -5,22 +5,23 @@ import LogInMagicForm from "./LogInMagicForm";
 import SingUpForm from "./SingUpForm";
 import st from "../style/Modal.module.scss";
 
-const Modal = () => {
+const Modal = ({setUserLogIn}) => {
   const [userEmail, setUserEmail] = useState("");
   const [userPass, setUserPass] = useState("");
   return (
     <div className={st.modal}>
       <div className={st.modal__content}>
         <div className={st.login__form}>
-          <span className={st.log}>вход</span>
-          <LogInMagicForm userEmail={userEmail} setUserEmail={setUserEmail} />
+          <span className={st.log}>LOGIN</span>
           <LogInForm
             userEmail={userEmail}
             setUserEmail={setUserEmail}
             userPass={userPass}
             setUserPass={setUserPass}
+            setUserLogIn={setUserLogIn}
           />
-          <span>У вас еще нет аккаунта?</span>
+          <LogInMagicForm userEmail={userEmail} setUserEmail={setUserEmail} />
+          <span className="not_avtor">Haven't you got an account yet?</span>
         </div>
         <div className="register__form">
           <SingUpForm

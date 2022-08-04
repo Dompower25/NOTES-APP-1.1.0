@@ -2,11 +2,13 @@ import React from 'react'
 import {
   SingUp
 } from "../supabase.js";
+import st from "../style/LogInMagicForm.module.scss";
 
 const SingUpForm = ({userEmail, setUserEmail, userPass, setUserPass}) => {
   return (
-    <form id="singUpForm" className="form">
+    <form id="singUpForm" className={st.singUpForm}>
       <input
+        className={st.input}
         type="text"
         value={userEmail}
         onChange={(e) => {
@@ -15,18 +17,24 @@ const SingUpForm = ({userEmail, setUserEmail, userPass, setUserPass}) => {
         placeholder="Email"
       ></input>
       <input
+        className={st.input}
         type="password"
         value={userPass}
         onChange={(e) => {
           setUserPass(e.target.value);
         }}
         placeholder="Password"
-        
       ></input>
-      <button onClick={(e) => {
+      <button
+        className={st.button}
+        onClick={(e) => {
           SingUp(e, userEmail, userPass);
           console.log(userEmail, userPass);
-        }} type="submit">зарегистрироваться</button>
+        }}
+        type="submit"
+      >
+        registration
+      </button>
     </form>
   );
 }

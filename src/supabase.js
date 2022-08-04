@@ -10,7 +10,9 @@ const supabase = createClient(
 );
 
 const userLog = supabase.auth.user();
+console.log(userLog);
 const getUserId = userLog?.id;
+
 
 async function SingUp(e, email, pass) {
   e.preventDefault();
@@ -32,7 +34,7 @@ async function LogIn(e, email, pass) {
       email: email,
       password: pass,
     });
-    console.log(user);
+        console.log(user);
   } catch (error) {
     throw error;
   }
