@@ -8,12 +8,14 @@ import { userLog, supabase, LogIn } from "./supabase";
 import { getNote, insertNote, deleteNote, updateNote } from "./notes";
 import HeaderForm from "./components/HeaderForm";
 import Modal from "./components/Modal";
+import Loader from "./UI/loader/Loader";
 
 function App() {
   const [notes, setNotes] = useState([]);
   const [bodyNote, setbodyNote] = useState("");
   const [searchTag, setSearchTag] = useState("");
   const filteredNotes = useSearch(notes, searchTag); //хук поиска тегов
+  const [notesLoading, setNotesLoading] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -22,12 +24,11 @@ function App() {
   }, []);
 
   useEffect(() => {
-    userLog ? getNote(setNotes) : setNotes([]);
+    userLog ? getNote(setNotes, setNotesLoading) : setNotes([]);
   }, []);
 
       console.log(loading);
       console.log(userLog?.id);
-
 
     return (
       <div className="App">
@@ -45,8 +46,10 @@ function App() {
             setNotes={setNotes}
             insertNote={insertNote}
           />
-          <hr></hr>
-          <SearchInput value={searchTag} note={notes} onChange={setSearchTag} />
+          <hr></hr>          
+          {notesLoading
+            ? <Loader/>
+            : <SearchInput value={searchTag} note={notes} onChange={setSearchTag} />}          
           {filteredNotes.map(({ bodyNote, id, tags, timeCreate }) => (
             <NoteItem
               edit={updateNote}

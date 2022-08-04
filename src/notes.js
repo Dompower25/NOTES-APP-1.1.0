@@ -22,13 +22,15 @@ const textNotTags = (text, obj) => {
   return (obj.tags = [text]);
 };
 
-async function getNote(setNotes) {
+async function getNote(setNotes, setNotesLoading) {
   try {
+    setNotesLoading(true);
     let { data, error } = await supabase
       .from("notes")
       .select("*")
       .eq("user_id", getUserId);
-    return setNotes(data);
+    setNotes(data);
+    setNotesLoading(false);
   } catch (error) {
     throw error;
   }

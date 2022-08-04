@@ -1,5 +1,5 @@
 import React from 'react'
-import { LogIn } from '../supabase';
+import { LogIn, userLog, getUserId } from "../supabase";
 import st from "../style/LogInMagicForm.module.scss";
 
 const LogInForm = ({
@@ -9,6 +9,8 @@ const LogInForm = ({
   setUserPass,
   setUserLogIn,
 }) => {
+
+
   return (
     <form id="logIn" className={st.login__form}>
       <input
@@ -33,7 +35,6 @@ const LogInForm = ({
         className={st.button}
         onClick={(e) => {
           LogIn(e, userEmail, userPass);
-          setUserLogIn(true);
         }}
       >
         go in
