@@ -1,6 +1,5 @@
-
 import { createClient } from "@supabase/supabase-js";
-export { SingUp, LogInMagic, LogIn, LogOut, userLog, getUserId, supabase };
+export { SingUp, LogInMagic, LogIn, LogOut, userLog, supabase };
 
 //supabase.com  сервисный следует использовать только на сервере, а не на клиенте или в браузере.
 const SUPABASE_URL = "https://obbgzeamtcqhzsiwmktq.supabase.co";
@@ -10,9 +9,6 @@ const supabase = createClient(
 );
 
 const userLog = supabase.auth.user();
-console.log(userLog);
-const getUserId = userLog?.id;
-
 
 async function SingUp(e, email, pass) {
   e.preventDefault();
@@ -27,21 +23,32 @@ async function SingUp(e, email, pass) {
   }
 }
 
-async function LogIn(e, email, pass) {
+async function LogIn(
+  e,
+  email,
+  pass,
+  setStateLogin,
+  setLogInLoading,
+  setUserLogIn
+) {
   e.preventDefault();
   try {
+    setStateLogin(true);
     let { user, error } = await supabase.auth.signIn({
       email: email,
       password: pass,
     });
-        console.log(user);
+    console.log(user);
+    user ? setLogInLoading(true) : setStateLogin(false);
+    const userLog = supabase.auth.user();
   } catch (error) {
+    setStateLogin(false);
     throw error;
   }
 }
 
 async function LogInMagic(e, email) {
-    e.preventDefault();
+  e.preventDefault();
   try {
     let { user, error } = await supabase.auth.signIn({
       email: email,

@@ -4,7 +4,7 @@ import NotesForm from "./components/NotesForm";
 import SearchInput from "./components/SearchInput";
 import "./style/App.scss";
 import { useSearch } from "./hooks/useSearch";
-import { userLog, supabase, LogIn } from "./supabase";
+import { userLog } from "./supabase";
 import { getNote, insertNote, deleteNote, updateNote } from "./notes";
 import HeaderForm from "./components/HeaderForm";
 import Modal from "./components/Modal";
@@ -12,44 +12,49 @@ import Loader from "./UI/loader/Loader";
 
 function App() {
   const [notes, setNotes] = useState([]);
-  const [bodyNote, setbodyNote] = useState("");
+  const [bodyNote, setBodyNote] = useState("");
   const [searchTag, setSearchTag] = useState("");
   const filteredNotes = useSearch(notes, searchTag); //хук поиска тегов
   const [notesLoading, setNotesLoading] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [logInLoading, setLogInLoading] = useState(false);
+  const [userLogIn, setUserLogIn] = useState(userLog);
 
   useEffect(() => {
-    userLog ? setLoading(true) : setLoading(false);
-    console.log(loading);
-  }, []);
+    async function log() {
+      (await userLogIn) ? setLogInLoading(true) : setLogInLoading(false);
+      console.log(userLogIn);
+    }
+    log();
+  }, [userLogIn]);
 
   useEffect(() => {
-    userLog ? getNote(setNotes, setNotesLoading) : setNotes([]);
+    userLog ? getNote(setNotes, setNotesLoading) : setLogInLoading(false);
+    console.log(userLog);
   }, []);
 
-      console.log(loading);
-      console.log(userLog?.id);
-
-    return (
-      <div className="App">
-        {loading ? (
-          <HeaderForm setUserLogIn={setLoading} />
-        ) : (
-          <Modal setUserLogIn={setLoading} />
-        )}
+  return (
+    <div className="App">
+      {logInLoading ? (
         <div className="notes__app">
+          <HeaderForm setLogInLoading={setLogInLoading} />
           <h1>NOTES APP</h1>
           <NotesForm //форма создания заметки
             bodyNote={bodyNote}
-            setbodyNote={setbodyNote}
+            setbodyNote={setBodyNote}
             notes={notes}
             setNotes={setNotes}
             insertNote={insertNote}
           />
-          <hr></hr>          
-          {notesLoading
-            ? <Loader/>
-            : <SearchInput value={searchTag} note={notes} onChange={setSearchTag} />}          
+          <hr></hr>
+          {notesLoading ? (
+            <Loader />
+          ) : (
+            <SearchInput
+              value={searchTag}
+              note={notes}
+              onChange={setSearchTag}
+            />
+          )}
           {filteredNotes.map(({ bodyNote, id, tags, timeCreate }) => (
             <NoteItem
               edit={updateNote}
@@ -63,8 +68,15 @@ function App() {
             />
           ))}
         </div>
-      </div>
-    );
+      ) : (
+        <Modal
+          setLogInLoading={setLogInLoading}
+          logInLoading={logInLoading}
+          setUserLogIn={setUserLogIn}
+        />
+      )}
+    </div>
+  );
 }
 
 export default App;
