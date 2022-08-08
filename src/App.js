@@ -10,7 +10,6 @@ import HeaderForm from "./components/HeaderForm";
 import Modal from "./components/Modal";
 import Loader from "./UI/loader/Loader";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import MyButton from "./UI/MyButton";
 
 function App() {
   const [notes, setNotes] = useState([]);
@@ -28,15 +27,15 @@ function App() {
       userLog?.id ? setShowModal(false) : setShowModal(true);
     }
     log();
+  }, [userLogIn]);
+
+  useEffect(() => {
+    userLog ? getNote(setNotes, setNotesLoading) : setLogInLoading(false);
   }, []);
 
   console.log(showModal);
   console.log(userLog);
   console.log(userLogIn);
-
-  useEffect(() => {
-    userLog ? getNote(setNotes, setNotesLoading) : setLogInLoading(false);
-  }, []);
 
   return (
     <div className="App">
@@ -78,9 +77,9 @@ function App() {
         )}
         <TransitionGroup className="list">
           {filteredNotes.map(({ bodyNote, id, tags, timeCreate }) => (
-            <CSSTransition key={timeCreate} timeout={500} classNames="todo">
+            <CSSTransition key={timeCreate} timeout={500} classNames="noteList">
               <NoteItem
-                className="todo"
+                className="noteList"
                 edit={updateNote}
                 note={searchTag}
                 deleteNote={() => deleteNote(id, setNotes, notes)}

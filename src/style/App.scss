@@ -145,6 +145,13 @@ hr {
   }
 }
 
+.noteList-enter-active {
+  animation: fade-in 500ms forwards;
+}
+
+.noteList-exit-active {
+  animation: fade-out 500ms forwards;
+}
 
 .modal-enter {
   opacity: 0;
