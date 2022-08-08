@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { LogOut, userLog, supabase } from "../supabase";
 import MyButton from "../UI/MyButton";
 
-const HeaderForm = ({ setLogInLoading }) => {
+const HeaderForm = ({ setLogInLoading, setShowModal }) => {
   const [userName, setUserName] = useState("");
 
   useEffect(() => {
@@ -16,6 +16,7 @@ const HeaderForm = ({ setLogInLoading }) => {
         onClick={() => {
           LogOut();
           setLogInLoading(false);
+          setShowModal(true);
         }}
       >
         выйти

@@ -12,8 +12,6 @@ import Loader from "./UI/loader/Loader";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import MyButton from "./UI/MyButton";
 
-
-
 function App() {
   const [notes, setNotes] = useState([]);
   const [bodyNote, setBodyNote] = useState("");
@@ -22,16 +20,19 @@ function App() {
   const [notesLoading, setNotesLoading] = useState(false);
   const [logInLoading, setLogInLoading] = useState(false);
   const [showModal, setShowModal] = useState(true);
-  const [userLogIn, setUserLogIn] = useState(userLog);
+  const [userLogIn, setUserLogIn] = useState(false);
 
   useEffect(() => {
     async function log() {
       (await userLogIn) ? setLogInLoading(true) : setLogInLoading(false);
+      userLog?.id ? setShowModal(false) : setShowModal(true);
     }
     log();
-  }, [userLogIn]);
+  }, []);
 
   console.log(showModal);
+  console.log(userLog);
+  console.log(userLogIn);
 
   useEffect(() => {
     userLog ? getNote(setNotes, setNotesLoading) : setLogInLoading(false);
@@ -41,7 +42,7 @@ function App() {
     <div className="App">
       <CSSTransition
         in={showModal}
-        timeout={200}
+        timeout={350}
         classNames="modal"
         unmountOnExit
         onEnter={() => setShowModal(true)}
@@ -52,11 +53,15 @@ function App() {
           setLogInLoading={setLogInLoading}
           logInLoading={logInLoading}
           setUserLogIn={setUserLogIn}
+          setShowModal={setShowModal}
         />
       </CSSTransition>
 
       <div className="notes__app">
-        <HeaderForm setLogInLoading={setLogInLoading} />
+        <HeaderForm
+          setLogInLoading={setLogInLoading}
+          setShowModal={setShowModal}
+        />
         <h1>NOTES APP</h1>
         <NotesForm //форма создания заметки
           bodyNote={bodyNote}
