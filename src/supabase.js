@@ -29,7 +29,6 @@ async function LogIn(
   pass,
   setStateLogin,
   setLogInLoading,
-  setUserLogIn
 ) {
   e.preventDefault();
   try {

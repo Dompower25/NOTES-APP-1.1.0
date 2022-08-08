@@ -35,7 +35,7 @@ function NoteItem({ bodyNote, tag, note, edit, timeCreate, deleteNote, id }) {
         </div>
         <div className="note__btn">
           <MyButton onClick={deleteNote}>
-            удалить
+            Delete
           </MyButton>
           <MyButton
             style={{ display: "inline-block" }}
@@ -44,7 +44,7 @@ function NoteItem({ bodyNote, tag, note, edit, timeCreate, deleteNote, id }) {
               setEditButt("inline-block");
             }}
           >
-            редактировать
+            Edit
           </MyButton>
           <MyButton
             style={{ display: editButt, backgroundColor: "green" }}
@@ -54,7 +54,7 @@ function NoteItem({ bodyNote, tag, note, edit, timeCreate, deleteNote, id }) {
               setEditButt("none");
             }}
           >
-            сохранить
+            Save
           </MyButton>
         </div>
       </div>

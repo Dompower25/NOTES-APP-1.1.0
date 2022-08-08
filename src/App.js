@@ -19,7 +19,7 @@ function App() {
   const [notesLoading, setNotesLoading] = useState(false);
   const [logInLoading, setLogInLoading] = useState(false);
   const [showModal, setShowModal] = useState(true);
-  const [userLogIn, setUserLogIn] = useState(false);
+  const [userLogIn, setUserLogIn] = useState(userLog);
 
   useEffect(() => {
     async function log() {
@@ -41,7 +41,7 @@ function App() {
     <div className="App">
       <CSSTransition
         in={showModal}
-        timeout={350}
+        timeout={500}
         classNames="modal"
         unmountOnExit
         onEnter={() => setShowModal(true)}
@@ -51,11 +51,9 @@ function App() {
           className="modal"
           setLogInLoading={setLogInLoading}
           logInLoading={logInLoading}
-          setUserLogIn={setUserLogIn}
           setShowModal={setShowModal}
         />
       </CSSTransition>
-
       <div className="notes__app">
         <HeaderForm
           setLogInLoading={setLogInLoading}

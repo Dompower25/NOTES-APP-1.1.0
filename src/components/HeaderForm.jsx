@@ -19,7 +19,7 @@ const HeaderForm = ({ setLogInLoading, setShowModal }) => {
           setShowModal(true);
         }}
       >
-        выйти
+        EXIT
       </MyButton>
     </div>
   );

@@ -7,12 +7,12 @@ const SearchInput = ({ note, onChange, value }) => {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className="search"
-        placeholder="search #tag"
+        placeholder="Search #tag"
       ></input>
       {note.length !== 0 ? (
-        <h2 style={{ textAlign: "center" }}>список заметок</h2>
+        <h2 style={{ textAlign: "center" }}>Notes list</h2>
       ) : (
-        <h2 style={{ textAlign: "center" }}>нет заметок</h2>
+        <h2 style={{ textAlign: "center" }}>No notes</h2>
       )}
     </div>
   );

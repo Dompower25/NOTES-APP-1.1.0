@@ -15,14 +15,14 @@ const NotesForm = ({
           value={bodyNote}
           onChange={(event) => setbodyNote(event.target.value)}
           type="text"
-          placeholder="создайте заметку"
+          placeholder="Create note"
         ></MyInput>
         <MyButton
           onClick={(e) => {
             insertNote(e, bodyNote, setbodyNote, setNotes);
           }}
         >
-          добавить заметку
+          Add a note
         </MyButton>
       </form>
     </div>

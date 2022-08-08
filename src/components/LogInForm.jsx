@@ -9,7 +9,6 @@ const LogInForm = ({
   setUserPass,
   setLogInLoading,
   setStateLogin,
-  setUserLogIn,
 }) => {
   return (
     <form id="logIn" className={st.login__form}>
@@ -40,7 +39,7 @@ const LogInForm = ({
             userPass,
             setStateLogin,
             setLogInLoading,
-            setUserLogIn
+  
           );
         }}
       >
