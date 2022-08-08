@@ -34,7 +34,9 @@ function NoteItem({ bodyNote, tag, note, edit, timeCreate, deleteNote, id }) {
           </div>
         </div>
         <div className="note__btn">
-          <MyButton onClick={deleteNote}>удалить</MyButton>
+          <MyButton onClick={deleteNote}>
+            удалить
+          </MyButton>
           <MyButton
             style={{ display: "inline-block" }}
             onClick={() => {

@@ -27,6 +27,7 @@ const Modal = ({ setLogInLoading, setUserLogIn }) => {
               setStateLogin={setStateLogin}
               setLogInLoading={setLogInLoading}
               setUserLogIn={setUserLogIn}
+
             />
           )}
 
