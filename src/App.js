@@ -10,6 +10,10 @@ import HeaderForm from "./components/HeaderForm";
 import Modal from "./components/Modal";
 import Loader from "./UI/loader/Loader";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+import LogInForm from "./components/LogInForm";
+import LogInMagicForm from "./components/LogInMagicForm";
+import SingUpForm from "./components/SingUpForm";
+import st from "./style/Modal.module.scss";
 
 function App() {
   const [notes, setNotes] = useState([]);
@@ -19,23 +23,22 @@ function App() {
   const [notesLoading, setNotesLoading] = useState(false);
   const [logInLoading, setLogInLoading] = useState(false);
   const [showModal, setShowModal] = useState(true);
-  const [userLogIn, setUserLogIn] = useState(userLog);
+  
+
+  const [userLogIn, setUserLogIn] = useState(userLog);  // не нравится эти два состояния
+  const [stateLogin, setStateLogin] = useState(false);
 
   useEffect(() => {
     async function log() {
       (await userLogIn) ? setLogInLoading(true) : setLogInLoading(false);
-      userLog?.id ? setShowModal(false) : setShowModal(true);
     }
+    userLog ? setShowModal(false) : setShowModal(true);
     log();
   }, [userLogIn]);
 
   useEffect(() => {
     userLog ? getNote(setNotes, setNotesLoading) : setLogInLoading(false);
   }, []);
-
-  console.log(showModal);
-  console.log(userLog);
-  console.log(userLogIn);
 
   return (
     <div className="App">
@@ -51,8 +54,27 @@ function App() {
           className="modal"
           setLogInLoading={setLogInLoading}
           logInLoading={logInLoading}
-          setShowModal={setShowModal}
-        />
+        >
+          <div className={st.login__form}>
+            <span className={st.log}>LOGIN</span>
+            {stateLogin ? (
+              <Loader />
+            ) : (
+              <LogInForm
+                setStateLogin={setStateLogin}
+                setLogInLoading={setLogInLoading}
+                setUserLogIn={setUserLogIn}
+                setShowModal={setShowModal}
+              />
+            )}
+            <LogInMagicForm />
+            <span className="not_avtor">Haven't you got an account yet?</span>
+          </div>
+          <div className="register__form">
+            <SingUpForm
+            />
+          </div>
+        </Modal>
       </CSSTransition>
       <div className="notes__app">
         <HeaderForm

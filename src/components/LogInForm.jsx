@@ -1,15 +1,17 @@
-import React from "react";
-import { LogIn, userLog, getUserId } from "../supabase";
+import React, { useState } from "react";
+import { LogIn } from "../supabase";
 import st from "../style/LogInMagicForm.module.scss";
 
 const LogInForm = ({
-  userEmail,
-  userPass,
-  setUserEmail,
-  setUserPass,
   setLogInLoading,
   setStateLogin,
+  setUserLogIn,
+  setShowModal,
 }) => {
+
+  const [userEmail, setUserEmail] = useState("");
+  const [userPass, setUserPass] = useState("");
+  
   return (
     <form id="logIn" className={st.login__form}>
       <input
@@ -34,12 +36,13 @@ const LogInForm = ({
         className={st.button}
         onClick={(e) => {
           LogIn(
-            e,
             userEmail,
             userPass,
             setStateLogin,
             setLogInLoading,
-  
+            setUserLogIn,
+            setShowModal,
+            e.preventDefault()
           );
         }}
       >

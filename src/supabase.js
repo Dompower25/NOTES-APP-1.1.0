@@ -10,8 +10,7 @@ const supabase = createClient(
 
 const userLog = supabase.auth.user();
 
-async function SingUp(e, email, pass) {
-  e.preventDefault();
+async function SingUp(email, pass) {
   try {
     let { user, error } = await supabase.auth.signUp({
       email: email,
@@ -24,30 +23,31 @@ async function SingUp(e, email, pass) {
 }
 
 async function LogIn(
-  e,
   email,
   pass,
   setStateLogin,
   setLogInLoading,
+  setUserLogIn,
+  setShowModal
 ) {
-  e.preventDefault();
   try {
     setStateLogin(true);
     let { user, error } = await supabase.auth.signIn({
       email: email,
       password: pass,
     });
-    console.log(user);
     user ? setLogInLoading(true) : setStateLogin(false);
     const userLog = supabase.auth.user();
+    setUserLogIn(userLog);
+    setShowModal(false)
   } catch (error) {
     setStateLogin(false);
+    setShowModal(true);
     throw error;
   }
 }
 
-async function LogInMagic(e, email) {
-  e.preventDefault();
+async function LogInMagic(email) {
   try {
     let { user, error } = await supabase.auth.signIn({
       email: email,

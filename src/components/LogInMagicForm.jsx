@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { LogInMagic } from '../supabase';
 import st from "../style/LogInMagicForm.module.scss";
 
-const LogInMagicForm = ({userEmail, setUserEmail}) => {
+const LogInMagicForm = () => {
+  
+    const [userEmail, setUserEmail] = useState("");
   return (
     <form id="logInMagic" className={st.magic__login__form}>
       <input
@@ -17,7 +19,7 @@ const LogInMagicForm = ({userEmail, setUserEmail}) => {
       <button
         className={st.button}
         onClick={(e) => {
-          LogInMagic(e, userEmail);
+          LogInMagic(userEmail, e.preventDefault());
         }}
       >
         go in

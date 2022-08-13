@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   SingUp
 } from "../supabase.js";
 import st from "../style/LogInMagicForm.module.scss";
 
-const SingUpForm = ({userEmail, setUserEmail, userPass, setUserPass}) => {
+const SingUpForm = () => {
+    const [userEmail, setUserEmail] = useState("");
+    const [userPass, setUserPass] = useState("");
   return (
     <form id="singUpForm" className={st.singUpForm}>
       <input
@@ -28,7 +30,7 @@ const SingUpForm = ({userEmail, setUserEmail, userPass, setUserPass}) => {
       <button
         className={st.button}
         onClick={(e) => {
-          SingUp(e, userEmail, userPass);
+          SingUp(userEmail, userPass, e.preventDefault());
           console.log(userEmail, userPass);
         }}
         type="submit"
