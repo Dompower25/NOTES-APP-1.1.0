@@ -23,22 +23,15 @@ function App() {
   const [notesLoading, setNotesLoading] = useState(false);
   const [logInLoading, setLogInLoading] = useState(false);
   const [showModal, setShowModal] = useState(true);
-  
-
-  const [userLogIn, setUserLogIn] = useState(userLog);  // не нравится эти два состояния
+  const [userLogIn, setUserLogIn] = useState(userLog);
   const [stateLogin, setStateLogin] = useState(false);
+  const [showAuth, setShowAuth] = useState(true);
+  const [showRegistration, setShowRegistration] = useState(false);
 
   useEffect(() => {
-    async function log() {
-      (await userLogIn) ? setLogInLoading(true) : setLogInLoading(false);
-    }
-    userLog ? setShowModal(false) : setShowModal(true);
-    log();
-  }, [userLogIn]);
-
-  useEffect(() => {
+    userLogIn ? setShowModal(false) : setShowModal(true);
     userLog ? getNote(setNotes, setNotesLoading) : setLogInLoading(false);
-  }, []);
+  }, [userLogIn]);
 
   return (
     <div className="App">
@@ -57,22 +50,42 @@ function App() {
         >
           <div className={st.login__form}>
             <span className={st.log}>LOGIN</span>
-            {stateLogin ? (
-              <Loader />
-            ) : (
-              <LogInForm
-                setStateLogin={setStateLogin}
-                setLogInLoading={setLogInLoading}
-                setUserLogIn={setUserLogIn}
-                setShowModal={setShowModal}
-              />
+            {showAuth && (
+              <div>
+                {stateLogin ? (
+                  <Loader />
+                ) : (
+                  <LogInForm
+                    setStateLogin={setStateLogin}
+                    setLogInLoading={setLogInLoading}
+                    setUserLogIn={setUserLogIn}
+                    setShowRegistration={setShowRegistration}
+                  />
+                )}
+                <LogInMagicForm />
+                <button
+                  className="not_autorisation"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setShowRegistration(true);
+                  }}
+                >
+                  Haven't you got an account yet?
+                </button>
+              </div>
             )}
-            <LogInMagicForm />
-            <span className="not_avtor">Haven't you got an account yet?</span>
-          </div>
-          <div className="register__form">
-            <SingUpForm
-            />
+            <CSSTransition
+              in={showRegistration}
+              timeout={250}
+              classNames="register__form"
+              unmountOnExit
+              onEnter={() => setShowAuth(false)}
+              onExited={() => setShowAuth(true)}
+            >
+              <div className="register__form">
+                <SingUpForm setShowRegistration={setShowRegistration} />
+              </div>
+            </CSSTransition>
           </div>
         </Modal>
       </CSSTransition>
@@ -80,6 +93,7 @@ function App() {
         <HeaderForm
           setLogInLoading={setLogInLoading}
           setShowModal={setShowModal}
+          userLogIn={userLogIn}
         />
         <h1>NOTES APP</h1>
         <NotesForm //форма создания заметки

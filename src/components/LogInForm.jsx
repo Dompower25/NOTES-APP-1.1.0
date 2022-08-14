@@ -6,12 +6,11 @@ const LogInForm = ({
   setLogInLoading,
   setStateLogin,
   setUserLogIn,
-  setShowModal,
+  
 }) => {
-
   const [userEmail, setUserEmail] = useState("");
   const [userPass, setUserPass] = useState("");
-  
+
   return (
     <form id="logIn" className={st.login__form}>
       <input
@@ -41,7 +40,6 @@ const LogInForm = ({
             setStateLogin,
             setLogInLoading,
             setUserLogIn,
-            setShowModal,
             e.preventDefault()
           );
         }}

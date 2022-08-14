@@ -14,11 +14,18 @@ body {
   display: flex;
   justify-content: space-between;
 }
+.header {
+  width: 100%;
+  display: flex;
+}
 
 @media (max-width: 730px) {
   .App {
     max-width: 570px;
     margin: 0 auto;
+  }
+  .header {
+    flex-wrap: wrap;
   }
   
 }
@@ -32,6 +39,10 @@ body {
   display: block;
   margin:0 3px;
 }
+  .header {
+    flex-wrap: wrap;
+    justify-content: right;
+  }
 
 }
 
@@ -39,6 +50,10 @@ body {
   .App {
     max-width: none;
     margin: 0 4px;
+  }
+  .header {
+    flex-wrap: wrap;
+        justify-content: right;
   }
 }
 
@@ -49,6 +64,7 @@ hr {
   margin: 15px 0;
   border: 1px;
 }
+
 
 
 
@@ -108,16 +124,21 @@ hr {
 }
 
 
-.header {
-  width: 100%;
-  display: flex;
-}
 
 .user__name {
   font-weight: 200;
   font-size: 20px;
   color: beige;
   margin: 10px auto;
+}
+
+.not_autorisation {
+  background-color: rgb(49, 45, 45);
+  color: beige;
+  text-transform: uppercase;
+    &:hover {
+      text-shadow: rgba(130, 132, 13, 0.75) 0 0 10px;
+    }
 }
 
 
@@ -164,6 +185,22 @@ hr {
   opacity: 1;
 }
 .modal-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+
+.register__form-enter {
+  opacity: 0;
+}
+.register__form-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+.register__form-exit {
+  opacity: 1;
+}
+.register__form-exit-active {
   opacity: 0;
   transition: opacity 200ms;
 }

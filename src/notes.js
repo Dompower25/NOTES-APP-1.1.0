@@ -1,6 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 
-export {getNote, insertNote, deleteNote, updateNote };
+export { getNote, insertNote, deleteNote, updateNote };
 
 //supabase.com  сервисный следует использовать только на сервере, а не на клиенте или в браузере.
 const SUPABASE_URL = "https://obbgzeamtcqhzsiwmktq.supabase.co";

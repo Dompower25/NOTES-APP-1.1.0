@@ -16,7 +16,6 @@ async function SingUp(email, pass) {
       email: email,
       password: pass,
     });
-    console.log(user);
   } catch (error) {
     throw error;
   }
@@ -36,14 +35,13 @@ async function LogIn(
       email: email,
       password: pass,
     });
-    user ? setLogInLoading(true) : setStateLogin(false);
     const userLog = supabase.auth.user();
     setUserLogIn(userLog);
-    setShowModal(false)
+
+    (await user) ? setLogInLoading(true) : setStateLogin(false);
   } catch (error) {
-    setStateLogin(false);
     setShowModal(true);
-    throw error;
+    console.log(error);
   }
 }
 
@@ -52,8 +50,8 @@ async function LogInMagic(email) {
     let { user, error } = await supabase.auth.signIn({
       email: email,
     });
-    console.log(user);
   } catch (error) {
+    console.log(error);
     throw error;
   }
 }

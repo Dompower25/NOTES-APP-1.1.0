@@ -4,9 +4,9 @@ import {
 } from "../supabase.js";
 import st from "../style/LogInMagicForm.module.scss";
 
-const SingUpForm = () => {
-    const [userEmail, setUserEmail] = useState("");
-    const [userPass, setUserPass] = useState("");
+const SingUpForm = ({ setShowRegistration }) => {
+  const [userEmail, setUserEmail] = useState("");
+  const [userPass, setUserPass] = useState("");
   return (
     <form id="singUpForm" className={st.singUpForm}>
       <input
@@ -37,8 +37,17 @@ const SingUpForm = () => {
       >
         registration
       </button>
+      <button
+        className="not_autorisation"
+        onClick={(e) => {
+          e.preventDefault();
+          setShowRegistration(false);
+        }}
+      >
+        I have an account
+      </button>
     </form>
   );
-}
+};
 
 export default SingUpForm
