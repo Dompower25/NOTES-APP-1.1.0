@@ -6,7 +6,7 @@ import HeaderForm from "./components/Header/HeaderForm";
 import Loader from "./UI/loader/Loader";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import st from "./components/Modal/Modal.module.scss";
-import Modal from "./components/Modal/Modal"
+import Modal from "./components/Modal/Modal";
 import { UserContext } from "./hooks/useUser";
 import LogInForm from "./components/LoginForm/LogInForm";
 import LogInMagicForm from "./components/LogInMagicForm/LogInMagicForm";
@@ -56,10 +56,6 @@ function App() {
               <div>
                 <span className={st.log}>LOGIN</span>
                 <LogInForm />
-                <div className="box__magic__login">
-                  <span className="magic__login">or login from magic link</span>
-                </div>
-                <LogInMagicForm />
                 <button
                   className="not_autorisation"
                   onClick={(e) => {
@@ -90,8 +86,7 @@ function App() {
       <div className="notes__app">
         <HeaderForm />
         <h1>NOTES APP</h1>
-        <NotesForm //форма создания заметки
-        />
+        <NotesForm />
         <hr></hr>
         {notesLoading ? (
           <Loader />
