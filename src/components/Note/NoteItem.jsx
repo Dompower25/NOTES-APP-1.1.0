@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import MyButton from "../UI/MyButton";
-import st from "../style/NoteItem.module.scss";
+import MyButton from "../../UI/button/MyButton";
+
+import st from "./NoteItem.module.scss";
 
 function NoteItem({ bodyNote, tag, note, edit, timeCreate, deleteNote, id }) {
   const maxDate = new Date(timeCreate);

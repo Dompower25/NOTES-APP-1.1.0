@@ -1,37 +1,44 @@
-import React, { useState, useEffect } from "react";
-import NoteItem from "./components/NoteItem";
-import NotesForm from "./components/NotesForm";
-import SearchInput from "./components/SearchInput";
-import "./style/App.scss";
+import React, { useState, useEffect, useContext } from "react";
+import "./app/style/App.scss";
 import { useSearch } from "./hooks/useSearch";
-import { userLog } from "./supabase";
-import { getNote, insertNote, deleteNote, updateNote } from "./notes";
-import HeaderForm from "./components/HeaderForm";
-import Modal from "./components/Modal";
+import { getNote, deleteNote, updateNote } from "./processes/notes";
+import HeaderForm from "./components/Header/HeaderForm";
 import Loader from "./UI/loader/Loader";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import LogInForm from "./components/LogInForm";
-import LogInMagicForm from "./components/LogInMagicForm";
-import SingUpForm from "./components/SingUpForm";
-import st from "./style/Modal.module.scss";
+import st from "./components/Modal/Modal.module.scss";
+import Modal from "./components/Modal/Modal"
+import { UserContext } from "./hooks/useUser";
+import LogInForm from "./components/LoginForm/LogInForm";
+import LogInMagicForm from "./components/LogInMagicForm/LogInMagicForm";
+import SingUpForm from "./components/SingUpForm/SingUpForm";
+import NotesForm from "./components/Note/NotesForm";
+import SearchInput from "./components/Note/SearchInput";
+import NoteItem from "./components/Note/NoteItem";
 
 function App() {
   const [notes, setNotes] = useState([]);
-  const [bodyNote, setBodyNote] = useState("");
   const [searchTag, setSearchTag] = useState("");
   const filteredNotes = useSearch(notes, searchTag); //хук поиска тегов
   const [notesLoading, setNotesLoading] = useState(false);
-  const [logInLoading, setLogInLoading] = useState(false);
   const [showModal, setShowModal] = useState(true);
-  const [userLogIn, setUserLogIn] = useState(userLog);
-  const [stateLogin, setStateLogin] = useState(false);
   const [showAuth, setShowAuth] = useState(true);
   const [showRegistration, setShowRegistration] = useState(false);
 
+  const [user] = useContext(UserContext);
+
   useEffect(() => {
-    userLogIn ? setShowModal(false) : setShowModal(true);
-    userLog ? getNote(setNotes, setNotesLoading) : setLogInLoading(false);
-  }, [userLogIn]);
+    user ? setShowModal(false) : setShowModal(true);
+  }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      getNote(user.id).then((notes) => {
+        setNotes(notes);
+      });
+    } else {
+      setNotes([]);
+    }
+  }, [user]);
 
   return (
     <div className="App">
@@ -43,25 +50,15 @@ function App() {
         onEnter={() => setShowModal(true)}
         onExited={() => setShowModal(false)}
       >
-        <Modal
-          className="modal"
-          setLogInLoading={setLogInLoading}
-          logInLoading={logInLoading}
-        >
+        <Modal className="modal">
           <div className={st.login__form}>
-            <span className={st.log}>LOGIN</span>
             {showAuth && (
               <div>
-                {stateLogin ? (
-                  <Loader />
-                ) : (
-                  <LogInForm
-                    setStateLogin={setStateLogin}
-                    setLogInLoading={setLogInLoading}
-                    setUserLogIn={setUserLogIn}
-                    setShowRegistration={setShowRegistration}
-                  />
-                )}
+                <span className={st.log}>LOGIN</span>
+                <LogInForm />
+                <div className="box__magic__login">
+                  <span className="magic__login">or login from magic link</span>
+                </div>
                 <LogInMagicForm />
                 <button
                   className="not_autorisation"
@@ -83,6 +80,7 @@ function App() {
               onExited={() => setShowAuth(true)}
             >
               <div className="register__form">
+                <span className={st.log}>REGISTRATION</span>
                 <SingUpForm setShowRegistration={setShowRegistration} />
               </div>
             </CSSTransition>
@@ -90,18 +88,9 @@ function App() {
         </Modal>
       </CSSTransition>
       <div className="notes__app">
-        <HeaderForm
-          setLogInLoading={setLogInLoading}
-          setShowModal={setShowModal}
-          userLogIn={userLogIn}
-        />
+        <HeaderForm />
         <h1>NOTES APP</h1>
         <NotesForm //форма создания заметки
-          bodyNote={bodyNote}
-          setbodyNote={setBodyNote}
-          notes={notes}
-          setNotes={setNotes}
-          insertNote={insertNote}
         />
         <hr></hr>
         {notesLoading ? (

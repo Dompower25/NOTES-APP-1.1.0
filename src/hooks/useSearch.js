@@ -1,12 +1,12 @@
 import { useMemo } from "react";
 
-export const useSearch = (note, searchTeg) => {
+export const useSearch = (notes, searchTag) => {
   const searchTags = useMemo(() => {
-    if (searchTeg) {
-      return [...note].filter((note) => note.tags.includes(searchTeg));
+    if (searchTag) {
+      return notes.filter((notes) => notes.tags.includes(searchTag));
     }
-    return note;
-  }, [searchTeg, note]);
+    return notes;
+  }, [searchTag, notes]);
 
   return searchTags;
 };

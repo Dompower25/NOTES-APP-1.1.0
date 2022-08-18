@@ -1,0 +1,42 @@
+
+.singUpForm {
+    display: flex;
+  flex-direction: column;
+}
+
+.input {
+  margin: 10px;
+  padding: 3px 5px;
+  font-size: 16px;
+  background-color: rgba(216, 201, 201, 0.0);
+  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  color: beige;
+    &::placeholder {
+      color: rgba(245, 245, 220, 0.734);
+      text-transform: uppercase;
+      text-align: center;
+    }
+    &:hover {
+      box-shadow: 0px 0px 2px 3px rgba(130, 132, 13, 0.75);
+    }
+    &:focus {
+      box-shadow: 0px 0px 3px 4px rgb(130, 132, 13);
+    }
+  border-bottom: 1px solid  rgb(99, 93, 93);
+}
+
+.button {
+  padding: 5px;
+  margin: -5px 10px 10px 10px;
+  color: beige;
+  text-transform: uppercase;
+  border: 1px solid rgb(99, 93, 93);
+  border-radius: 20px;
+  background-color: rgba(216, 201, 201, 0.0);
+  &:hover {
+      box-shadow: 0px 0px 2px 3px rgb(130, 132, 13, 0.75);
+    }
+    &:focus {
+      box-shadow: 0px 0px 3px 4px rgb(130, 132, 13);
+    }
+}

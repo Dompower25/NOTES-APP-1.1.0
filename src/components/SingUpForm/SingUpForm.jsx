@@ -1,8 +1,6 @@
-import React, { useState } from 'react'
-import {
-  SingUp
-} from "../supabase.js";
-import st from "../style/LogInMagicForm.module.scss";
+import React, { useState } from "react";
+import { SingUp } from "../../processes/supabase";
+import st from "./SingUpForm.module.scss";
 
 const SingUpForm = ({ setShowRegistration }) => {
   const [userEmail, setUserEmail] = useState("");
@@ -50,4 +48,4 @@ const SingUpForm = ({ setShowRegistration }) => {
   );
 };
 
-export default SingUpForm
+export default SingUpForm;

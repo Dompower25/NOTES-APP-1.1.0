@@ -56,7 +56,12 @@ body {
         justify-content: right;
   }
 }
-
+.box__magic__login {
+  margin: 10px auto;
+}
+.magic__login {
+  text-transform: uppercase;
+}
 
 
 
@@ -124,13 +129,6 @@ hr {
 }
 
 
-
-.user__name {
-  font-weight: 200;
-  font-size: 20px;
-  color: beige;
-  margin: 10px auto;
-}
 
 .not_autorisation {
   background-color: rgb(49, 45, 45);

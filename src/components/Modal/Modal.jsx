@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import st from "../style/Modal.module.scss";
+import st from "./Modal.module.scss";
 
 const Modal = ({children}) => {
 

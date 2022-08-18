@@ -1,0 +1,31 @@
+.user__name {
+  font-weight: 200;
+  font-size: 20px;
+  color: beige;
+  margin: 10px auto;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+}
+
+@media (max-width: 730px) {
+  .header {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 570px) {
+  .header {
+    flex-wrap: wrap;
+    justify-content: right;
+  }
+}
+
+@media (max-width: 370px) {
+  .header {
+    flex-wrap: wrap;
+    justify-content: right;
+  }
+}

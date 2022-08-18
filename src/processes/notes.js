@@ -9,9 +9,6 @@ const supabase = createClient(
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9iYmd6ZWFtdGNxaHpzaXdta3RxIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTUyOTE4OTEsImV4cCI6MTk3MDg2Nzg5MX0.Y5_Qju8baHUSW6JFK62TgK4vlFF-tHBafrSYSU0gJ4w"
 );
 
-const userLog = supabase.auth.user();
-const getUserId = userLog?.id;
-
 //добавление тегов в заметку
 const addTags = (obj, text) => {
   const regex = /#\w+/gm;
@@ -22,46 +19,35 @@ const textNotTags = (text, obj) => {
   return (obj.tags = [text]);
 };
 
-async function getNote(setNotes, setNotesLoading) {
+async function getNote(userId) {
   try {
-    setNotesLoading(true);
-    let { data, error } = await supabase
+    const { data, error } = await supabase
       .from("notes")
       .select("*")
-      .eq("user_id", getUserId);
-    setNotes(data);
-    setNotesLoading(false);
+      .eq("user_id", userId);
+    return data;
   } catch (error) {
     throw error;
   }
 }
 
 // добавление заметки supabase
-async function insertNote(e, newText, setbodyNote, setNotes) {
-  e.preventDefault();
+async function insertNote(newText, userId) {
   const newNote = {
     bodyNote: newText,
     tags: [],
     timeCreate: Date.now(),
-    user_id: userLog?.id,
+    user_id: userId,
   };
   newText.search(/#\w+/gm) !== -1
     ? addTags(newNote, newText)
     : textNotTags("no tags", newNote);
 
-  let backup = [];
-  setNotes((note) => {
-    backup = note;
-    return [...note, newNote];
-  });
-
   try {
     const { data, error } = await supabase.from("notes").insert(newNote);
   } catch (err) {
-    setNotes(backup);
     throw err;
   }
-  setbodyNote("");
 }
 
 //удаление заметки supabase
