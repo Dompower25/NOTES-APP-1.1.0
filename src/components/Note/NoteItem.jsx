@@ -1,15 +1,31 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { useCallback } from "react";
+import { NotesContext } from "../../hooks/useNote";
 import MyButton from "../../UI/button/MyButton";
-
 import st from "./NoteItem.module.scss";
 
-function NoteItem({ bodyNote, tag, note, edit, timeCreate, deleteNote, id }) {
+function NoteItem({ bodyNote, tag, note, timeCreate, id }) {
   const maxDate = new Date(timeCreate);
   const time = maxDate.toLocaleString();
   const [state, setState] = useState(bodyNote);
   const [stateTag, setStateTag] = useState(tag);
+  
   const [editNote, setEditNode] = useState(true);
   const [editButt, setEditButt] = useState("none");
+
+  const [, , , onDeleteNote, onUpdateNote] = useContext(NotesContext);
+
+  const onDeleteClick = useCallback((e) => {
+    e.preventDefault();
+    onDeleteNote(id);
+  }, [id, onDeleteNote])
+
+  const onUpdateClick = useCallback((e) => {
+    e.preventDefault();
+    onUpdateNote(state, id);
+    setEditNode(true);
+    setEditButt("none");
+  }, [state, id, onUpdateNote]);
   
   return (
     <div className="note__box">
@@ -35,9 +51,7 @@ function NoteItem({ bodyNote, tag, note, edit, timeCreate, deleteNote, id }) {
           </div>
         </div>
         <div className="note__btn">
-          <MyButton onClick={deleteNote}>
-            Delete
-          </MyButton>
+          <MyButton onClick={onDeleteClick}>Delete</MyButton>
           <MyButton
             style={{ display: "inline-block" }}
             onClick={() => {
@@ -49,11 +63,7 @@ function NoteItem({ bodyNote, tag, note, edit, timeCreate, deleteNote, id }) {
           </MyButton>
           <MyButton
             style={{ display: editButt, backgroundColor: "green" }}
-            onClick={() => {
-              edit(state, id, setStateTag);
-              setEditNode(true);
-              setEditButt("none");
-            }}
+            onClick={onUpdateClick}
           >
             Save
           </MyButton>

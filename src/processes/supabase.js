@@ -34,6 +34,7 @@ async function LogIn(email, pass) {
 }
 
 async function LogInMagic(email) {
+  //Не используется в данной версии приложения
   try {
     let { user, error } = await supabase.auth.signIn({
       email: email,

@@ -1,14 +1,22 @@
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
+import { NotesContext } from "../../hooks/useNote";
 import { UserContext } from "../../hooks/useUser";
-import { insertNote } from "../../processes/notes";
 import MyButton from "../../UI/button/MyButton";
 import MyInput from "../../UI/Input/MyInput";
 
-
 const NotesForm = () => {
   const [bodyNote, setBodyNote] = useState("");
-
   const [user] = useContext(UserContext);
+  const [, , onInsertNote] = useContext(NotesContext);
+
+  const onAddNoteClick = useCallback(
+    (e) => {
+      e.preventDefault();
+      onInsertNote(bodyNote);
+      setBodyNote("");
+    },
+    [bodyNote, onInsertNote]
+  );
 
   return (
     <div className="row_column">
@@ -19,17 +27,7 @@ const NotesForm = () => {
           type="text"
           placeholder="Create note"
         ></MyInput>
-        <MyButton
-          onClick={(e) => {
-            e.preventDefault();
-            user?.id &&
-              insertNote(bodyNote, user.id).then(() => {
-                setBodyNote("");
-              });
-          }}
-        >
-          Add a note
-        </MyButton>
+        <MyButton onClick={onAddNoteClick}>Add a note</MyButton>
       </form>
     </div>
   );

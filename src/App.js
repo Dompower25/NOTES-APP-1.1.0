@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import "./app/style/App.scss";
 import { useSearch } from "./hooks/useSearch";
 import { getNote, deleteNote, updateNote } from "./processes/notes";
@@ -9,36 +9,30 @@ import st from "./components/Modal/Modal.module.scss";
 import Modal from "./components/Modal/Modal";
 import { UserContext } from "./hooks/useUser";
 import LogInForm from "./components/LoginForm/LogInForm";
-import LogInMagicForm from "./components/LogInMagicForm/LogInMagicForm";
 import SingUpForm from "./components/SingUpForm/SingUpForm";
 import NotesForm from "./components/Note/NotesForm";
 import SearchInput from "./components/Note/SearchInput";
 import NoteItem from "./components/Note/NoteItem";
+import { NotesContext } from "./hooks/useNote";
 
 function App() {
-  const [notes, setNotes] = useState([]);
+  const [user] = useContext(UserContext);
+  const [notes] = useContext(NotesContext);
+  const [thisNotes, setThisNotes] = useState(notes);
   const [searchTag, setSearchTag] = useState("");
-  const filteredNotes = useSearch(notes, searchTag); //хук поиска тегов
+  const filteredNotes = useSearch(thisNotes, searchTag); //хук поиска тегов
   const [notesLoading, setNotesLoading] = useState(false);
   const [showModal, setShowModal] = useState(true);
   const [showAuth, setShowAuth] = useState(true);
   const [showRegistration, setShowRegistration] = useState(false);
-
-  const [user] = useContext(UserContext);
 
   useEffect(() => {
     user ? setShowModal(false) : setShowModal(true);
   }, [user]);
 
   useEffect(() => {
-    if (user) {
-      getNote(user.id).then((notes) => {
-        setNotes(notes);
-      });
-    } else {
-      setNotes([]);
-    }
-  }, [user]);
+    setThisNotes(notes);
+  });
 
   return (
     <div className="App">
@@ -91,16 +85,14 @@ function App() {
         {notesLoading ? (
           <Loader />
         ) : (
-          <SearchInput value={searchTag} note={notes} onChange={setSearchTag} />
+          <SearchInput value={searchTag} onChange={setSearchTag} />
         )}
         <TransitionGroup className="list">
           {filteredNotes.map(({ bodyNote, id, tags, timeCreate }) => (
             <CSSTransition key={timeCreate} timeout={500} classNames="noteList">
               <NoteItem
                 className="noteList"
-                edit={updateNote}
                 note={searchTag}
-                deleteNote={() => deleteNote(id, setNotes, notes)}
                 bodyNote={bodyNote}
                 id={id}
                 tag={tags}
