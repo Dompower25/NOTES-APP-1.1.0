@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext, useCallback } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./app/style/App.scss";
 import { useSearch } from "./hooks/useSearch";
-import { getNote, deleteNote, updateNote } from "./processes/notes";
 import HeaderForm from "./components/Header/HeaderForm";
 import Loader from "./UI/loader/Loader";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
