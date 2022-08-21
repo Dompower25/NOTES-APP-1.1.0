@@ -1,12 +1,10 @@
 import React, { useCallback, useContext, useState } from "react";
 import { NotesContext } from "../../hooks/useNote";
-import { UserContext } from "../../hooks/useUser";
 import MyButton from "../../UI/button/MyButton";
 import MyInput from "../../UI/Input/MyInput";
 
 const NotesForm = () => {
   const [bodyNote, setBodyNote] = useState("");
-  const [user] = useContext(UserContext);
   const [, , onInsertNote] = useContext(NotesContext);
 
   const onAddNoteClick = useCallback(

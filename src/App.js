@@ -17,21 +17,17 @@ import { NotesContext } from "./hooks/useNote";
 function App() {
   const [user] = useContext(UserContext);
   const [notes] = useContext(NotesContext);
-  const [thisNotes, setThisNotes] = useState(notes);
+
   const [searchTag, setSearchTag] = useState("");
-  const filteredNotes = useSearch(thisNotes, searchTag); //хук поиска тегов
-  const [notesLoading, setNotesLoading] = useState(false);
-  const [showModal, setShowModal] = useState(true);
+  const filteredNotes = useSearch(notes, searchTag); //хук поиска тегов
+
   const [showAuth, setShowAuth] = useState(true);
   const [showRegistration, setShowRegistration] = useState(false);
 
+  const [showModal, setShowModal] = useState(true);
   useEffect(() => {
     user ? setShowModal(false) : setShowModal(true);
   }, [user]);
-
-  useEffect(() => {
-    setThisNotes(notes);
-  });
 
   return (
     <div className="App">
@@ -76,26 +72,31 @@ function App() {
           </div>
         </Modal>
       </CSSTransition>
+
       <div className="notes__app">
         <HeaderForm />
         <h1>NOTES APP</h1>
         <NotesForm />
         <hr></hr>
-        {notesLoading ? (
-          <Loader />
-        ) : (
+        {notes ? (
           <SearchInput value={searchTag} onChange={setSearchTag} />
+        ) : (
+          <Loader />
         )}
         <TransitionGroup className="list">
-          {filteredNotes.map(({ bodyNote, id, tags, timeCreate }) => (
-            <CSSTransition key={timeCreate} timeout={500} classNames="noteList">
+          {filteredNotes.map(({ text, id, tags, creationDate }) => (
+            <CSSTransition
+              key={creationDate}
+              timeout={500}
+              classNames="noteList"
+            >
               <NoteItem
                 className="noteList"
                 note={searchTag}
-                bodyNote={bodyNote}
+                bodyNote={text}
                 id={id}
                 tag={tags}
-                timeCreate={timeCreate}
+                timeCreate={creationDate}
               />
             </CSSTransition>
           ))}

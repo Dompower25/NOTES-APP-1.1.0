@@ -37,13 +37,13 @@ async function deleteNote(id) {
 }
 
 //редактирование заметки supabase
-async function updateNote(newText, tags, id) {
+async function updateNote(updatedNote, id) {
   try {
     const { data, error } = await supabase
       .from("notes")
       .update({
-        bodyNote: newText,
-        tags: tags,
+        text: updatedNote.text,
+        tags: updatedNote.tags,
       })
       .eq("id", id);
   } catch (error) {

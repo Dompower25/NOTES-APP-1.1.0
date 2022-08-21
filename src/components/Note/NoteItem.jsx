@@ -9,24 +9,30 @@ function NoteItem({ bodyNote, tag, note, timeCreate, id }) {
   const time = maxDate.toLocaleString();
   const [state, setState] = useState(bodyNote);
   const [stateTag, setStateTag] = useState(tag);
-  
+
   const [editNote, setEditNode] = useState(true);
   const [editButt, setEditButt] = useState("none");
 
   const [, , , onDeleteNote, onUpdateNote] = useContext(NotesContext);
 
-  const onDeleteClick = useCallback((e) => {
-    e.preventDefault();
-    onDeleteNote(id);
-  }, [id, onDeleteNote])
+  const onDeleteClick = useCallback(
+    (e) => {
+      e.preventDefault();
+      onDeleteNote(id);
+    },
+    [id, onDeleteNote]
+  );
 
-  const onUpdateClick = useCallback((e) => {
-    e.preventDefault();
-    onUpdateNote(state, id);
-    setEditNode(true);
-    setEditButt("none");
-  }, [state, id, onUpdateNote]);
-  
+  const onUpdateClick = useCallback(
+    (e) => {
+      e.preventDefault();
+      onUpdateNote(state, id);
+      setEditNode(true);
+      setEditButt("none");
+    },
+    [state, id, onUpdateNote]
+  );
+
   return (
     <div className="note__box">
       <div className="note__content">
