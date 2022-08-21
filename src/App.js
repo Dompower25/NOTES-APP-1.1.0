@@ -19,61 +19,22 @@ function App() {
   const [notes] = useContext(NotesContext);
   const [searchTag, setSearchTag] = useState("");
   const filteredNotes = useSearch(notes, searchTag); //хук поиска тегов
+
   const [showAuth, setShowAuth] = useState(true);
   const [showRegistration, setShowRegistration] = useState(false);
 
   const [showModal, setShowModal] = useState(true);
+  const [showContent, setShowContent] = useState(true);
+
   useEffect(() => {
     user ? setShowModal(false) : setShowModal(true);
   }, [user]);
 
   return (
     <div className="App">
-      {showModal ? (
-        <CSSTransition
-          in={showModal}
-          timeout={500}
-          classNames="modal"
-          unmountOnExit
-          onEnter={() => setShowModal(true)}
-          onExited={() => setShowModal(false)}
-        >
-          <Modal className="modal">
-            <div className={st.login__form}>
-              {showAuth && (
-                <div>
-                  <span className={st.log}>LOGIN</span>
-                  <LogInForm />
-                  <button
-                    className="not_autorisation"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setShowRegistration(true);
-                    }}
-                  >
-                    Haven't you got an account yet?
-                  </button>
-                </div>
-              )}
-              <CSSTransition
-                in={showRegistration}
-                timeout={250}
-                classNames="register__form"
-                unmountOnExit
-                onEnter={() => setShowAuth(false)}
-                onExited={() => setShowAuth(true)}
-              >
-                <div className="register__form">
-                  <span className={st.log}>REGISTRATION</span>
-                  <SingUpForm setShowRegistration={setShowRegistration} />
-                </div>
-              </CSSTransition>
-            </div>
-          </Modal>
-        </CSSTransition>
-      ) : (
+      {showContent && (
         <div className="notes__app">
-          <HeaderForm />
+          <HeaderForm setShowContent={setShowContent} />
           <h1>NOTES APP</h1>
           <NotesForm />
           <hr></hr>
@@ -102,6 +63,47 @@ function App() {
           </TransitionGroup>
         </div>
       )}
+      <CSSTransition
+        in={showModal}
+        timeout={450}
+        classNames="modal"
+        unmountOnExit
+        onEnter={() => setShowContent(false)}
+        onExited={() => setShowContent(true)}
+      >
+        <Modal className="modal">
+          <div className={st.login__form}>
+            {showAuth && (
+              <div>
+                <span className={st.log}>LOGIN</span>
+                <LogInForm />
+                <button
+                  className="not_autorisation"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setShowRegistration(true);
+                  }}
+                >
+                  Haven't you got an account yet?
+                </button>
+              </div>
+            )}
+            <CSSTransition
+              in={showRegistration}
+              timeout={250}
+              classNames="register__form"
+              unmountOnExit
+              onEnter={() => setShowAuth(false)}
+              onExited={() => setShowAuth(true)}
+            >
+              <div className="register__form">
+                <span className={st.log}>REGISTRATION</span>
+                <SingUpForm setShowRegistration={setShowRegistration} />
+              </div>
+            </CSSTransition>
+          </div>
+        </Modal>
+      </CSSTransition>
     </div>
   );
 }

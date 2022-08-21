@@ -3,15 +3,16 @@ import { UserContext } from "../../hooks/useUser";
 import MyButton from '../../UI/button/MyButton'
 import "./HeaderForm.Module.scss";
 
-const HeaderForm = () => {
+const HeaderForm = ({ setShowContent }) => {
   const [user, , , onLogOut] = useContext(UserContext);
 
   const onCLick = useCallback(
     (e) => {
       e.preventDefault();
       onLogOut();
+      setShowContent(false);
     },
-    [onLogOut]
+    [onLogOut, setShowContent]
   );
 
   return (
