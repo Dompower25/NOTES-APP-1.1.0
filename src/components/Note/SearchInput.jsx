@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { NotesContext } from "../../hooks/useNote";
-import Loader from "../../UI/loader/Loader";
 
 const SearchInput = ({ onChange, value }) => {
   const [notes] = useContext(NotesContext);

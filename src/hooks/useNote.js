@@ -14,11 +14,6 @@ import {
 } from "../processes/notes";
 import { UserContext } from "./useUser";
 
-const noteUpdate = (() => {
-  const regex = /#\w+/gm;
-  const getTags = (text) => text.match(regex) ?? [];
-})();
-
 export const NotesContext = createContext([]);
 export function NotesContextProvider({ children }) {
   const [notes, setNotes] = useState([]);
