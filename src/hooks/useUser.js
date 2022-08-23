@@ -4,13 +4,19 @@ import { getLastUser, logIn, logInMagic, logOut } from "../processes/supabase";
 export const UserContext = createContext([]);
 export function UserContextProvider({ children }) {
   const [user, setUser] = useState(getLastUser);
+  const [errors, setErrors] = useState("");
+  const [spinner, setSpinner] = useState(false);
 
-  const onLogin = useCallback((email, pass) => {
+  const onLogIn = useCallback((email, pass) => {
+    setSpinner(true);
     logIn(email, pass)
-      .then((user) => {
+      .then(({ user, error }) => {
         setUser(user);
+        setErrors(error.message);
       })
-      .finally(() => {});
+      .finally(() => {
+        setSpinner(false);
+      });
   }, []);
 
   const onLogInMagic = useCallback((email) => {
@@ -27,7 +33,9 @@ export function UserContextProvider({ children }) {
   }, []);
 
   return (
-    <UserContext.Provider value={[user, onLogin, onLogInMagic, onLogOut]}>
+    <UserContext.Provider
+      value={[user, onLogIn, onLogInMagic, onLogOut, errors, spinner]}
+    >
       {children}
     </UserContext.Provider>
   );

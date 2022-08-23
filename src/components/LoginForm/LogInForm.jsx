@@ -4,30 +4,27 @@ import Loader from "../../UI/loader/Loader";
 import st from "./LogInForm.module.scss";
 
 const LogInForm = () => {
-  const [loading, setLoading] = useState(false);
   const [userEmail, setUserEmail] = useState("");
   const [userPass, setUserPass] = useState("");
-  const [, onLogin] = useContext(UserContext);
+  const [, onLogIn, , , errors, spinner] = useContext(UserContext);
 
   const onClick = useCallback(
     (e) => {
-      setLoading(true);
       e.preventDefault();
-      onLogin(userEmail, userPass);
-      setTimeout(() => {
-        //как сделать спиннер без timeOut?  ждать ответ от supabase?
-        setLoading(false);
-      }, 3000);
+      onLogIn(userEmail, userPass);
     },
-    [userEmail, userPass, onLogin]
+    [onLogIn, userEmail, userPass]
   );
 
   return (
     <form id="logIn" className={st.login__form}>
-      {loading ? (
+      {spinner ? (
         <Loader />
       ) : (
         <div className={st.box}>
+          <div className={st.errorMessage}>
+            <span>{errors}</span>
+          </div>
           <input
             className={st.input}
             type="text"
