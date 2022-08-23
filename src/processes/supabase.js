@@ -10,30 +10,31 @@ const getLastUser = () => {
   return supabase.auth.user();
 };
 
-async function SingUp(email, pass) {
+const errorOutput = () => {};
+
+async function singUp(email, pass) {
   try {
     let { user, error } = await supabase.auth.signUp({
       email: email,
       password: pass,
     });
+    return { user: user, error: error };
   } catch (error) {
-    throw error;
+    throw new Error("Something went wrong", error);
   }
 }
 
-async function LogIn(email, pass) {
+async function logIn(email, pass) {
   try {
     let { user, error } = await supabase.auth.signIn({
       email: email,
       password: pass,
     });
     return user;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
 
-async function LogInMagic(email) {
+async function logInMagic(email) {
   //Не используется в данной версии приложения
   try {
     let { user, error } = await supabase.auth.signIn({
@@ -45,7 +46,7 @@ async function LogInMagic(email) {
   }
 }
 
-async function LogOut() {
+async function logOut() {
   try {
     let { error } = await supabase.auth.signOut();
     console.log(error);
@@ -54,4 +55,12 @@ async function LogOut() {
   }
 }
 
-export { SingUp, LogInMagic, LogIn, LogOut, getLastUser, supabase };
+export {
+  singUp,
+  logInMagic,
+  logIn,
+  logOut,
+  getLastUser,
+  supabase,
+  errorOutput,
+};

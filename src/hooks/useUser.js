@@ -1,12 +1,12 @@
 import { createContext, useCallback, useState } from "react";
-import { getLastUser, LogIn, LogInMagic, LogOut } from "../processes/supabase";
+import { getLastUser, logIn, logInMagic, logOut } from "../processes/supabase";
 
 export const UserContext = createContext([]);
 export function UserContextProvider({ children }) {
   const [user, setUser] = useState(getLastUser);
 
   const onLogin = useCallback((email, pass) => {
-    LogIn(email, pass)
+    logIn(email, pass)
       .then((user) => {
         setUser(user);
       })
@@ -14,7 +14,7 @@ export function UserContextProvider({ children }) {
   }, []);
 
   const onLogInMagic = useCallback((email) => {
-    LogInMagic(email)
+    logInMagic(email)
       .then((user) => {
         setUser(user);
       })
@@ -23,7 +23,7 @@ export function UserContextProvider({ children }) {
 
   const onLogOut = useCallback(() => {
     setUser(null);
-    LogOut();
+    logOut();
   }, []);
 
   return (

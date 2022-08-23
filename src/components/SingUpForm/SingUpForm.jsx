@@ -1,12 +1,35 @@
 import React, { useState } from "react";
-import { SingUp } from "../../processes/supabase";
+import { singUp } from "../../processes/supabase";
 import st from "./SingUpForm.module.scss";
 
 const SingUpForm = ({ setShowRegistration }) => {
   const [userEmail, setUserEmail] = useState("");
   const [userPass, setUserPass] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [message, setMessage] = useState("");
+
+  const onCLick = () => {
+    try {
+      singUp(userEmail, userPass).then(({ user, error }) => {
+        if (error) {
+          setErrorMessage(error.message);
+        } else {
+          setMessage(
+            `Activate your account, follow the link from the Email ${userEmail}`
+          );
+        }
+      });
+    } catch (e) {
+      throw new Error("Something went wrong", e);
+    }
+  };
+
   return (
     <form id="singUpForm" className={st.singUpForm}>
+      <div className={st.errorMessage}>
+        <span className={st.errorMessage}>{errorMessage}</span>
+        <span className={st.finallyMessage}>{message}</span>
+      </div>
       <input
         className={st.input}
         type="text"
@@ -28,8 +51,10 @@ const SingUpForm = ({ setShowRegistration }) => {
       <button
         className={st.button}
         onClick={(e) => {
-          SingUp(userEmail, userPass, e.preventDefault());
-          console.log(userEmail, userPass);
+          onCLick();
+          e.preventDefault();
+          setUserEmail("");
+          setUserPass("");
         }}
         type="submit"
       >
