@@ -13,6 +13,8 @@ const SingUpForm = ({ setShowRegistration }) => {
   const onCLick = useCallback(
     (e) => {
       e.preventDefault();
+      setErrorMessage('');
+      setMessage('')
       setSpinner(true);
       singUp(userEmail, userPass)
         .then(({ user, error }) => {
@@ -26,6 +28,7 @@ const SingUpForm = ({ setShowRegistration }) => {
         })
         .finally(() => {
           setSpinner(false);
+
         });
     },
     [userEmail, userPass]
