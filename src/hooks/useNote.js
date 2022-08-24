@@ -34,6 +34,7 @@ export function NotesContextProvider({ children }) {
         return [newNote, ...note];
       });
       insertNote(newNote);
+      console.log(newNote);
     },
     [user]
   );
@@ -42,7 +43,7 @@ export function NotesContextProvider({ children }) {
   const onDeleteNote = useCallback(
     (id) => {
       deleteNote(id);
-      setNotes(notes.filter((i) => i.id !== id));
+      setNotes(notes.filter((i) => i.noteId !== id));
     },
     [notes]
   );

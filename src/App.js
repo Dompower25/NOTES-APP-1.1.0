@@ -18,7 +18,7 @@ function App() {
   const [user] = useContext(UserContext);
   const [notes] = useContext(NotesContext);
   const [searchTag, setSearchTag] = useState("");
-  const filteredNotes = useSearch(notes, searchTag); //хук поиска тегов
+  const filteredNotes = useSearch(notes || [], searchTag); //хук поиска тегов
 
   const [showAuth, setShowAuth] = useState(true);
   const [showRegistration, setShowRegistration] = useState(false);
@@ -44,17 +44,18 @@ function App() {
             <Loader />
           )}
           <TransitionGroup className="list">
-            {filteredNotes.map(({ text, id, tags, creationDate }) => (
+            {filteredNotes.map(({ text, tags, creationDate, noteId }) => (
               <CSSTransition
                 key={creationDate}
                 timeout={500}
                 classNames="noteList"
               >
                 <NoteItem
+                  key={creationDate}
                   className="noteList"
                   note={searchTag}
                   bodyNote={text}
-                  id={id}
+                  id={noteId}
                   tag={tags}
                   timeCreate={creationDate}
                 />

@@ -30,7 +30,10 @@ async function insertNote(newNote) {
 //удаление заметки supabase
 async function deleteNote(id) {
   try {
-    const { data, error } = await supabase.from("notes").delete().eq("id", id);
+    const { data, error } = await supabase
+      .from("notes")
+      .delete()
+      .eq("noteId", id);
   } catch (error) {
     throw error;
   }
@@ -45,7 +48,7 @@ async function updateNote(updatedNote, id) {
         text: updatedNote.text,
         tags: updatedNote.tags,
       })
-      .eq("id", id);
+      .eq("noteId", id);
   } catch (error) {
     throw error;
   }

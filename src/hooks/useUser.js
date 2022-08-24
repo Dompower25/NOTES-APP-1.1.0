@@ -12,7 +12,9 @@ export function UserContextProvider({ children }) {
     logIn(email, pass)
       .then(({ user, error }) => {
         setUser(user);
-        setErrors(error.message);
+        if (error) {
+          setErrors(error.message);
+        }
       })
       .finally(() => {
         setSpinner(false);
