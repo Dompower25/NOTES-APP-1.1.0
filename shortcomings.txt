@@ -7,7 +7,7 @@ Activate your account, follow the link from the Email - {email}!
 
 + 2) сделать стили для Safari
 
-3) сделать теги для русского языка
++ 3) сделать теги для русского языка
 
 + 4) поправить стиль Notes list (слишком маленькие отступы)
 
