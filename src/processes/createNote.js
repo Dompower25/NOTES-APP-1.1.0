@@ -1,5 +1,5 @@
 export const createNewNote = (() => {
-  const regex = /#\w+/gm;
+  const regex = /#[\wа-яё]+/gm;
   const getTags = (text) => text.match(regex) ?? [];
 
   return ({ user, text, tags, creationDate, noteId }) => {

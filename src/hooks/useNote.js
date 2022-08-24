@@ -34,7 +34,6 @@ export function NotesContextProvider({ children }) {
         return [newNote, ...note];
       });
       insertNote(newNote);
-      console.log(newNote);
     },
     [user]
   );
