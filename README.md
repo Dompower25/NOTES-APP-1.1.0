@@ -1,3 +1,5 @@
+#faster SingIn login: domanovich.job@gmail.com  pass: 123456789
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
