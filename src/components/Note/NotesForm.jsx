@@ -1,17 +1,22 @@
 import React, { useCallback, useContext, useState } from "react";
+import s from "./NotesForm.module.scss";
 import { NotesContext } from "../../hooks/useNote";
-import MyButton from "../../UI/button/MyButton";
-import MyInput from "../../UI/Input/MyInput";
+import AddIcon from "@mui/icons-material/Add";
+import { IconButton } from "@mui/material";
 
 const NotesForm = () => {
-  const [bodyNote, setBodyNote] = useState("");
+  const [bodyNote, setBodyNote] = useState(null || '');
   const [, , onInsertNote] = useContext(NotesContext);
+
+  const getBody = document.querySelector("body");
 
   const onAddNoteClick = useCallback(
     (e) => {
-      e.preventDefault();
-      onInsertNote(bodyNote);
-      setBodyNote("");
+      if (bodyNote) {
+        e.preventDefault();
+        onInsertNote(bodyNote);
+        setBodyNote("");
+      }
     },
     [bodyNote, onInsertNote]
   );
@@ -19,13 +24,20 @@ const NotesForm = () => {
   return (
     <div className="row_column">
       <form>
-        <MyInput
+        <textarea
+          className={s.input}
           value={bodyNote}
-          onChange={(event) => setBodyNote(event.target.value)}
-          type="text"
+          onChange={(event) => {
+            setBodyNote(event.target.value);
+            if (event.target.scrollTop > 0) {
+              event.target.style.height = event.target.scrollHeight + "px";
+            }
+          }}
           placeholder="Create note"
-        ></MyInput>
-        <MyButton onClick={onAddNoteClick}>Add a note</MyButton>
+        ></textarea>
+        <IconButton onClick={onAddNoteClick}>
+          <AddIcon fontSize="large" className="addBtn" />
+        </IconButton>
       </form>
     </div>
   );

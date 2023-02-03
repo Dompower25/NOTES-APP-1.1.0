@@ -1,8 +1,10 @@
+import { IconButton } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { useCallback } from "react";
 import { NotesContext } from "../../hooks/useNote";
 import MyButton from "../../UI/button/MyButton";
 import st from "./NoteItem.module.scss";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 function NoteItem({ bodyNote, tag, note, timeCreate, id }) {
   const maxDate = new Date(timeCreate);
@@ -17,7 +19,6 @@ function NoteItem({ bodyNote, tag, note, timeCreate, id }) {
 
   const onDeleteClick = useCallback(
     (e) => {
-      e.preventDefault();
       onDeleteNote(id);
     },
     [id, onDeleteNote]
@@ -25,7 +26,6 @@ function NoteItem({ bodyNote, tag, note, timeCreate, id }) {
 
   const onUpdateClick = useCallback(
     (e) => {
-      e.preventDefault();
       onUpdateNote(state, id);
       setEditNode(true);
       setEditButt("none");
@@ -34,45 +34,51 @@ function NoteItem({ bodyNote, tag, note, timeCreate, id }) {
   );
 
   return (
-    <div className="note__box">
-      <div className="note__content">
-        <div>
-          <textarea
-            disabled={editNote}
-            onChange={(e) => {
-              setState(e.target.value);
-            }}
-            className={st.note}
-            value={state}
-          ></textarea>
-          <div className="tegs__box row">
-            <div>
-              {stateTag.map((t) => (
-                <span className={note === t ? st.blue : "tegSt"} key={t}>
-                  {t + " "}
-                </span>
-              ))}
+    <div className={st.note__box}>
+      <div className={st.note__content}>
+        <div className={st.pr}>
+          <CloseRoundedIcon
+            fontSize="medium"
+            onClick={onDeleteClick}
+            className={st.closeBtn}
+          />
+          {editNote ? (
+            <div
+              className={st.noteBox}
+              onClick={() => {
+                setEditNode(false);
+                setEditButt("inline-block");
+              }}
+            >
+              {state}
             </div>
-            <span>{time}</span>
-          </div>
-        </div>
-        <div className="note__btn">
-          <MyButton onClick={onDeleteClick}>Delete</MyButton>
-          <MyButton
-            style={{ display: "inline-block" }}
-            onClick={() => {
-              setEditNode(false);
-              setEditButt("inline-block");
-            }}
-          >
-            Edit
-          </MyButton>
-          <MyButton
-            style={{ display: editButt, backgroundColor: "green" }}
-            onClick={onUpdateClick}
-          >
+          ) : (
+            <textarea
+              disabled={editNote}
+              onChange={(e) => {
+                setState(e.target.value);
+                if (e.target.scrollTop > 0) {
+                  e.target.style.height = e.target.scrollHeight + "px";
+                }
+              }}
+              className={st.noteInput}
+              value={state}
+            ></textarea>
+          )}
+          <MyButton style={{ display: editButt }} onClick={onUpdateClick}>
             Save
           </MyButton>
+        </div>
+
+        <div className="tegs__box row">
+          <div>
+            {stateTag.map((t) => (
+              <span className={note === t ? st.blue : "tegSt"} key={t}>
+                {t + " "}
+              </span>
+            ))}
+          </div>
+          <div className={st.text}>{time}</div>
         </div>
       </div>
     </div>
