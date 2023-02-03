@@ -1,4 +1,4 @@
-#faster SingIn login: domanovich.job@gmail.com  pass: 123456789
+#faster SingIn login: domjobtest@gmail.com  pass: 123456
 
 # Getting Started with Create React App
 
