@@ -35,9 +35,7 @@ function App() {
       {showContent && (
         <div className="notes__app">
           <HeaderForm setShowContent={setShowContent} />
-          <h1>NOTES APP</h1>
           <NotesForm />
-          <hr></hr>
           {notes ? (
             <SearchInput value={searchTag} onChange={setSearchTag} />
           ) : (
