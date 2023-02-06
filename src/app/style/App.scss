@@ -5,9 +5,7 @@
 body {
   background-color: rgb(26, 52, 51);
 }
-.App {
-  padding: 1px;
-}
+
 
 .notes__app {
   max-width: 700px;
@@ -35,7 +33,7 @@ body {
 
 @media (max-width: 570px) {
   .App {
-    max-width: 450px;
+    max-width: 400px;
     margin: 0 auto;
   }
   .row {
@@ -48,10 +46,10 @@ body {
   }
 }
 
-@media (max-width: 370px) {
+@media (max-width: 420px) {
   .App {
-    max-width: none;
-    margin: 0 4px;
+    max-width: 360px;
+    margin: 0 auto;
   }
   .header {
     flex-wrap: wrap;
@@ -123,32 +121,32 @@ span {
 
 @keyframes fade-in {
   0% {
+    transform: scale(0);
     opacity: 0;
-    transform: translateX(-100px);
   }
   100% {
-    transform: translateX(0);
+    transform: scale(1);
     opacity: 1;
   }
 }
 
 @keyframes fade-out {
   0% {
-    transform: translateX(0);
+    transform: scale(1);
     opacity: 1;
   }
   100% {
-    transform: translateX(100px);
+    transform: scale(0);
     opacity: 0;
   }
 }
 
 .noteList-enter-active {
-  animation: fade-in 500ms forwards;
+  animation: fade-in 500ms ease-in-out;
 }
 
 .noteList-exit-active {
-  animation: fade-out 500ms forwards;
+  animation: fade-out 500ms ease-in-out;
 }
 
 .modal-enter {
@@ -204,4 +202,3 @@ span {
     transform: rotate(90deg);
   }
 }
-

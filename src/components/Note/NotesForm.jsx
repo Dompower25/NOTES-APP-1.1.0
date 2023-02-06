@@ -5,7 +5,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { IconButton } from "@mui/material";
 
 const NotesForm = () => {
-  const [bodyNote, setBodyNote] = useState(null || '');
+  const [bodyNote, setBodyNote] = useState(null || "");
   const [, , onInsertNote] = useContext(NotesContext);
 
   const getBody = document.querySelector("body");
@@ -29,7 +29,7 @@ const NotesForm = () => {
           value={bodyNote}
           onChange={(event) => {
             setBodyNote(event.target.value);
-            if (event.target.scrollTop > 0) {
+            if (event.target.scrollTop) {
               event.target.style.height = event.target.scrollHeight + "px";
             }
           }}
