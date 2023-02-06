@@ -2,12 +2,13 @@
   font-weight: 200;
   font-size: 20px;
   color: beige;
-  margin: 10px auto;
+  margin: 10px 0;
 }
 
 .header {
   width: 100%;
   display: flex;
+  justify-content: space-between;
 }
 
 @media (max-width: 730px) {

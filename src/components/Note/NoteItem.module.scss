@@ -1,26 +1,104 @@
-.note {
+.note__box {
+  position: sticky;
+  top: 10px;
+}
+
+.note__content {
+  -webkit-appearance: none;
+  border-radius: 4px;
+  background-color: #576363;
+  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  margin: 10px 0;
+  padding: 7px;
+  textarea: disabled {
+    color: rgb(226, 222, 222);
+  }
+}
+.text {
+  font-size: 12px;
+  color: rgba(245, 245, 220, 0.734);
+}
+.noteInput {
+  position: relative;
+  top: -30px;
+  box-sizing: border-box;
   width: 100%;
-  min-height: 70px;
   resize: none;
-  border: 1px solid rgb(129, 127, 127);
-  border-radius: 5px;
+  margin: 2px -20px 2px 2px;
+  padding: 3px 30px 3px 3px;
   font-size: 18px;
-  margin: 0 auto;
   overflow: hidden;
-  background-color: rgb(53, 156, 108, 0.8);
-  color: rgb(245, 245, 220);  
+  color: rgb(245, 245, 220);
+  background: inherit;
+  box-sizing: border-box;
   &:disabled {
     -webkit-opacity: 1;
-    -webkit-text-fill-color: white;
-  } 
+  }
+}
+
+.noteBox {
+  box-sizing: border-box;
+  font-size: 18px;
+  width: 100%;
+  height: auto;
+  color: rgb(245, 245, 220);
+  padding: 3px 25px 3px 3px;
+  margin: 2px;
+  margin-top: -25px;
+  overflow: hidden;
 }
 
 .blue {
-  background-color: rgb(101, 152, 184, 0.5);
+  background-color: rgba(255, 255, 255, 0.5);
   border-radius: 3px;
 }
 
 .green {
   background-color: green;
   display: none;
+}
+.text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.closeBtn {
+  position: relative;
+  display: inline;
+  left: 660px;
+
+  color: rgba(255, 255, 255, 0.233);
+  cursor: pointer;
+  transition: color 0.3s linear;
+
+  &:hover {
+    color: rgb(240, 12, 12);
+    transition: color 0.3s linear;
+  }
+}
+
+@media (max-width: 730px) {
+  .closeBtn {
+    top: -5px;
+    left: 535px;
+  }
+  .text {
+    padding: 4px 0 0 0;
+  }
+}
+
+@media (max-width: 570px) {
+  .closeBtn {
+    top: -5px;
+    left: 365px;
+  }
+
+}
+
+@media (max-width: 420px) {
+  .closeBtn {
+    top: -5px;
+    left: 325px;
+  }
 }

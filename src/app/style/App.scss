@@ -5,13 +5,11 @@
 body {
   background-color: rgb(26, 52, 51);
 }
-.App {
-  padding: 1px;
-}
+
 
 .notes__app {
   max-width: 700px;
-  margin: 20px auto;
+  margin: 0 auto;
 }
 
 .row {
@@ -31,34 +29,31 @@ body {
   .header {
     flex-wrap: wrap;
   }
-  
 }
 
 @media (max-width: 570px) {
   .App {
-    max-width: 450px;
+    max-width: 400px;
     margin: 0 auto;
   }
-.row {
-  display: block;
-  margin:0 3px;
-}
+  .row {
+    display: block;
+    margin: 0 3px;
+  }
   .header {
     flex-wrap: wrap;
     justify-content: right;
   }
-
 }
 
-@media (max-width: 370px) {
+@media (max-width: 420px) {
   .App {
-    max-width: none;
-    margin: 0 4px;
-
+    max-width: 360px;
+    margin: 0 auto;
   }
   .header {
     flex-wrap: wrap;
-        justify-content: right;
+    justify-content: right;
   }
 }
 .box__magic__login {
@@ -68,19 +63,9 @@ body {
   text-transform: uppercase;
 }
 
-
-
 hr {
   margin: 15px 0;
   border: 1px;
-}
-
-
-
-
-.row_column {
-  display: flex;
-  flex-direction: column;
 }
 
 .block {
@@ -102,82 +87,66 @@ hr {
 
 .tegs__box {
   padding: 3px 0;
-
 }
-  span {
-    color: rgba(245, 245, 220, 0.734);
-  }
+span {
+  color: rgba(245, 245, 220, 0.734);
+}
 
 .search {
   margin-bottom: 10px;
-  height: 30px;
+  height: 20px;
   width: 200px;
   border: 1px solid rgb(129, 127, 127);
   border-radius: 10px;
-  padding: 0 7px;
+  padding: 1px 7px 0px 7px;
   font-size: 16px;
   padding-bottom: 3px;
   border-radius: 8px;
   background-color: rgba(216, 201, 201, 0.319);
   box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
-  color: rgb(239, 239, 225);
-  &::placeholder{
-    color: rgb(224, 217, 206);
+  color: rgb(68, 45, 175);
+  &::placeholder {
+    color: rgb(255, 255, 255);
   }
 }
-
-.note__content {
-  -webkit-appearance: none;
-  border-radius: 8px;
-  background-color: rgba(216, 201, 201, 0.319);
-  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
-  margin: 20px 0;
-  padding: 7px;
-  textarea: disabled {
-  color: rgb(226, 222, 222);
-    }
-  }
 
 .not_autorisation {
   background-color: rgb(49, 45, 45);
   color: beige;
   text-transform: uppercase;
-    &:hover {
-      text-shadow: rgba(130, 132, 13, 0.75) 0 0 10px;
-    }
-}
-
-
-@keyframes fade-in {
-  0% {
-    opacity: 0;
-    transform: translateX(-100px);
-  } 
-  100% {
- 
-    transform: translateX(0);
-       opacity: 1;
+  &:hover {
+    text-shadow: rgba(130, 132, 13, 0.75) 0 0 10px;
   }
 }
 
+@keyframes fade-in {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
 
 @keyframes fade-out {
   0% {
-    transform: translateX(0);
+    transform: scale(1);
     opacity: 1;
-  } 
+  }
   100% {
-    transform: translateX(100px);
+    transform: scale(0);
     opacity: 0;
   }
 }
 
 .noteList-enter-active {
-  animation: fade-in 500ms forwards;
+  animation: fade-in 500ms ease-in-out;
 }
 
 .noteList-exit-active {
-  animation: fade-out 500ms forwards;
+  animation: fade-out 500ms ease-in-out;
 }
 
 .modal-enter {
@@ -195,7 +164,6 @@ hr {
   transition: opacity 200ms;
 }
 
-
 .register__form-enter {
   opacity: 0;
 }
@@ -209,4 +177,28 @@ hr {
 .register__form-exit-active {
   opacity: 0;
   transition: opacity 200ms;
+}
+
+.addBtn {
+  color: rgba(255, 255, 255, 0.233);
+  cursor: pointer;
+  transition: color 0.3s linear;
+
+  &:hover {
+    color: rgb(89, 89, 245);
+    transition: color 0.3s linear;
+    animation: rotate 0.3s linear;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  40% {
+    transform: rotate(-20deg);
+  }
+  100% {
+    transform: rotate(90deg);
+  }
 }
